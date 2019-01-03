@@ -21,7 +21,7 @@ private static String path;
 private ImageView imageView;
 private static EditText diaName, text, time;
 private Button nextPic;
-private static int ton;
+private static String ton;
 private static CheckBox audioTune;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,22 +64,24 @@ private static CheckBox audioTune;
 
     public void addData(){
         if (audioTune.isChecked() == true)      {
-            ton = 1;
+            ton = "1";
         }else{
-            ton = 0;
+            ton = "0";
         }
         if (isEmpty(diaName) == true || isEmpty(time) == true /*|| imageView.getDrawable() == null*/){
             Toast.makeText(NewDiaActivity.this, "please fulfil the needed Information NAME, PICTURE and TIME", Toast.LENGTH_LONG).show();
         }else {
-            boolean isInserted = myDB.insertData(diaName.getText().toString(), path, Integer.parseInt(time.getText().toString()), text.getText().toString(), ton);
-            if (isInserted == true) {
-                Toast.makeText(NewDiaActivity.this, "Data inserted", Toast.LENGTH_LONG).show();
-            } else {
+            //boolean isIn = myDB.insertDia(diaName.getText().toString());
+           // boolean isInserted = myDB.insertData(diaName.getText().toString(), path, time.getText().toString(), text.getText().toString(), ton);
+            boolean isInn = myDB.insertAnz(diaName.getText().toString());
+            if (isInn == true) {
                 Toast.makeText(NewDiaActivity.this, "Data inserted", Toast.LENGTH_LONG).show();
                 diaName.setEnabled(false);
                 text.setText("");
                 time.setText("");
                 imageView.setImageDrawable(null);
+            } else {
+                Toast.makeText(NewDiaActivity.this, "Data cannot be inserted", Toast.LENGTH_LONG).show();
             }
        }
     }
